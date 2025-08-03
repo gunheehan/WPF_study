@@ -1,11 +1,11 @@
 ﻿using System.IO;
-using System.Reflection;
 using System.Windows.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
+using WPF_study.Interfaces;
 using WPF_study.Services;
 using WPF_study.ViewModels.Pages;
 using WPF_study.ViewModels.Windows;
@@ -44,6 +44,7 @@ namespace WPF_study
 
                 // Main window with navigation
                 services.AddSingleton<INavigationWindow, MainWindow>();
+                services.AddSingleton<IDateTime, DateTimeService>();
                 services.AddSingleton<MainWindowViewModel>();
 
                 services.AddSingleton<DashboardPage>();

@@ -21,6 +21,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <ui:Button
@@ -33,11 +34,16 @@
             Grid.Column="1"
             Margin="12,0,0,0"
             VerticalAlignment="Center"
-            Text="{Binding ViewModel.Text, Mode=TwoWay}" />
+            Text="{Binding ViewModel.Counter, Mode=OneWay}" />
         <ui:Button
             Grid.Column="3"
             Command="{Binding ViewModel.TextChangedCommand, Mode=OneWay}"
             Content="Click me!"
             Icon="Fluent24"/>
+        <TextBlock
+            Grid.Column="4"
+            Margin="12,0,0,0"
+            VerticalAlignment="Center"
+            Text="{Binding ViewModel.CurrentTime, Mode=OneWay}" />
     </Grid>
 </Page>

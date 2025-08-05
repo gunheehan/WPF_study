@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Wpf.Ui;
 using Wpf.Ui.DependencyInjection;
 using WPF_study.Interfaces;
+using WPF_study.Models;
 using WPF_study.Services;
 using WPF_study.ViewModels.Pages;
 using WPF_study.ViewModels.Windows;
@@ -47,6 +48,7 @@ namespace WPF_study
                 services.AddSingleton<IDateTime, DateTimeService>();
                 services.AddSingleton<MainWindowViewModel>();
 
+                services.AddDbContext<WpfprojectDatabaseContext>();
                 services.AddSingleton<DashboardPage>();
                 services.AddSingleton<DashboardViewModel>();
                 services.AddSingleton<DataPage>();

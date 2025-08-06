@@ -14,5 +14,9 @@ namespace WPF_study.Views.Pages
 
             InitializeComponent();
         }
+        private void cbxAdminAgency_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

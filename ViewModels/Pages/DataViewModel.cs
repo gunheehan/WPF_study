@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using Wpf.Ui.Abstractions.Controls;
+using WPF_study.Interfaces;
 using WPF_study.Models;
 
 namespace WPF_study.ViewModels.Pages
@@ -8,8 +9,23 @@ namespace WPF_study.ViewModels.Pages
     {
         private bool _isInitialized = false;
 
+        private readonly IDatabase<GangnamguPopulation?>? _database;
+
+        public DataViewModel(IDatabase<GangnamguPopulation?>? database)
+        {
+            this._database = database;
+        }
+
         [ObservableProperty]
         private IEnumerable<DataColor> _colors;
+        [ObservableProperty]
+        private IEnumerable<GangnamguPopulation?>? gangnamguPopulations;
+        [ObservableProperty]
+        private IEnumerable<string?>? administrativeAgency;
+        [ObservableProperty]
+        private IEnumerable<string?>? adminstrativeAgency;
+        [ObservableProperty]
+        private string? selectedAdministrativeAgency;
 
         public Task OnNavigatedToAsync()
         {
@@ -21,28 +37,15 @@ namespace WPF_study.ViewModels.Pages
 
         public Task OnNavigatedFromAsync() => Task.CompletedTask;
 
+        private void OnSelectAdministrativeAgency()
+        {
+            var selectedData = selectedAdministrativeAgency;
+        }
+
         private void InitializeViewModel()
         {
-            var random = new Random();
-            var colorCollection = new List<DataColor>();
-
-            for (int i = 0; i < 8192; i++)
-                colorCollection.Add(
-                    new DataColor
-                    {
-                        Color = new SolidColorBrush(
-                            Color.FromArgb(
-                                (byte)200,
-                                (byte)random.Next(0, 250),
-                                (byte)random.Next(0, 250),
-                                (byte)random.Next(0, 250)
-                            )
-                        )
-                    }
-                );
-
-            Colors = colorCollection;
-
+            this.gangnamguPopulations = _database.Get();
+            this.administrativeAgency = gangnamguPopulations?.Select(x => x.AdministrativeAgency).ToList();
             _isInitialized = true;
         }
     }

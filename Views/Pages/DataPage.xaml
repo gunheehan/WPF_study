@@ -45,13 +45,18 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <ui:TextBlock Grid.Row="0" x:Name="tbkAdminAgency" Margin="0,0,0,10">
                 <Run Text="Adminstrative Agency" FontWeight="Bold" />
                 <Run Text="*" Foreground="OrangeRed"/>
             </ui:TextBlock>
-            <ComboBox Grid.Row="1" x:Name="cbxAdminAgency" ItemsSource="{Binding ViewModel.Colors}"/>
+            <ComboBox Grid.Row="1" x:Name="cbxAdminAgency" 
+                      SelectedItem="{Binding ViewModel.SelectedAdministrativeAgency, Mode=TwoWay}"
+                      SelectionChanged="cbxAdminAgency_SelectionChanged"
+                      ItemsSource="{Binding ViewModel.AdministrativeAgency, Mode=TwoWay}" Margin="0,0,0,10"/>
 
             <ui:TextBlock Grid.Row="2" x:Name="tbktotalPopulation" Margin="0,0,0,10">
                 <Run Text="Totla Population" FontWeight="Bold" />
@@ -90,6 +95,7 @@
             <ui:TextBox Grid.Row="11" Margin="0,0,0,10"/>
 
             <ui:Button Grid.Row="14" Height="50" Width="300" Background="SteelBlue"
+                       Command="{Binding ViewModel.SelectedAdministrativeAgency, Mode=OneWay}"
                        Content="Create" Foreground="White" Margin="0,0,0,10"/>
 
             <Grid Grid.Row="15">
@@ -110,7 +116,9 @@
                        Content="Delete" Foreground="White" Margin="0,0,0,10"/>
         </Grid>
         <Grid Grid.Column="1">
-
+            <DataGrid x:Name="dgGangnamguPopulation" ItemsSource="{Binding ViewModel.GangnamguPopulations, Mode=OneWay}">
+                
+            </DataGrid>
         </Grid>
     </Grid>
 </Page>

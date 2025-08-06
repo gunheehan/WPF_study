@@ -46,6 +46,7 @@ namespace WPF_study
                 // Main window with navigation
                 services.AddSingleton<INavigationWindow, MainWindow>();
                 services.AddSingleton<IDateTime, DateTimeService>();
+                services.AddSingleton<IDatabase<GangnamguPopulation>, GangnamguPupulationService>();
                 services.AddSingleton<MainWindowViewModel>();
 
                 services.AddDbContext<WpfprojectDatabaseContext>();

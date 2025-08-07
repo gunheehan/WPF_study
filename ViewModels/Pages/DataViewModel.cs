@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Threading.Tasks;
+using System.Windows.Media;
 using Wpf.Ui.Abstractions.Controls;
 using WPF_study.Interfaces;
 using WPF_study.Models;
@@ -25,18 +26,11 @@ namespace WPF_study.ViewModels.Pages
         [ObservableProperty]
         private string? selectedAdministrativeAgency;
 
-        public void OnNavigatedTo()
-        {
-            Console.WriteLine("DataViewModel OnNavigatedTo");
-            if (!_isInitialized)
-                InitializeViewModel();
-        }
 
         public Task OnNavigatedToAsync()
         {
-            Console.WriteLine("DataViewModel OnNavigatedToAsync");
             if (!_isInitialized)
-                InitializeViewModel();
+                InitializeViewModelAsync();
 
             return Task.CompletedTask;
         }
@@ -45,13 +39,16 @@ namespace WPF_study.ViewModels.Pages
 
         private void OnSelectAdministrativeAgency()
         {
-            var selectedData = selectedAdministrativeAgency;
+            var selectedData = this.SelectedAdministrativeAgency;
         }
 
-        private void InitializeViewModel()
+        private async Task InitializeViewModelAsync()
         {
-            this.GangnamguPopulations = _database.Get();
-            this.AdministrativeAgency = gangnamguPopulations?.Select(x => x.AdministrativeAgency).ToList();
+            this.GangnamguPopulations = await Task.Run(() => _database?.Get());
+            if( this.GangnamguPopulations != null)
+            {
+                this.AdministrativeAgency = gangnamguPopulations?.Select(x => x.AdministrativeAgency).ToList();
+            }
             _isInitialized = true;
         }
     }

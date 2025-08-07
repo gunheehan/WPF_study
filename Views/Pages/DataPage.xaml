@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WPF_study.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:WPF_study.Controls"
     xmlns:models="clr-namespace:WPF_study.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="DataPage"
@@ -24,7 +25,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
+        <controls:LoadingControl Grid.Column="0" HorizontalAlignment="Center"
+                                 x:Name="searchGridLoadingControl" Visibility="Visible"/>
+        
+        <Grid Grid.Column="0" x:Name="searchGrid" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -120,7 +124,11 @@
             <ui:Button Grid.Row="17" Height="50" Width="300" Background="IndianRed"
                        Content="Delete" Foreground="White" Margin="0,0,0,10"/>
         </Grid>
-        <Grid Grid.Column="1">
+        
+        <controls:LoadingControl Grid.Column="1" HorizontalAlignment="Center"
+                                 x:Name="dgGridLoadingControl" Visibility="Visible"/>
+        
+        <Grid Grid.Column="1" x:Name="dgGrid" Visibility="Collapsed">
             <DataGrid x:Name="dgGangnamguPopulation" ItemsSource="{Binding ViewModel.GangnamguPopulations, Mode=OneWay}">
                 
             </DataGrid>

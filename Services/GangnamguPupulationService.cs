@@ -28,7 +28,7 @@ namespace WPF_study.Services
 
         public List<GangnamguPopulation> Get()
         {
-            return _dbContext?.GangnamguPopulations.ToList();
+            return _dbContext?.GangnamguPopulations?.ToList();
         }
 
         public GangnamguPopulation? GetDetail(int id)

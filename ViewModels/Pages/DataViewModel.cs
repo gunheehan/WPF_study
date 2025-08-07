@@ -23,12 +23,18 @@ namespace WPF_study.ViewModels.Pages
         [ObservableProperty]
         private IEnumerable<string?>? administrativeAgency;
         [ObservableProperty]
-        private IEnumerable<string?>? adminstrativeAgency;
-        [ObservableProperty]
         private string? selectedAdministrativeAgency;
+
+        public void OnNavigatedTo()
+        {
+            Console.WriteLine("DataViewModel OnNavigatedTo");
+            if (!_isInitialized)
+                InitializeViewModel();
+        }
 
         public Task OnNavigatedToAsync()
         {
+            Console.WriteLine("DataViewModel OnNavigatedToAsync");
             if (!_isInitialized)
                 InitializeViewModel();
 
@@ -44,8 +50,8 @@ namespace WPF_study.ViewModels.Pages
 
         private void InitializeViewModel()
         {
-            this.gangnamguPopulations = _database.Get();
-            this.administrativeAgency = gangnamguPopulations?.Select(x => x.AdministrativeAgency).ToList();
+            this.GangnamguPopulations = _database.Get();
+            this.AdministrativeAgency = gangnamguPopulations?.Select(x => x.AdministrativeAgency).ToList();
             _isInitialized = true;
         }
     }

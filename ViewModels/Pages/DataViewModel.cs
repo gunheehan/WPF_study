@@ -18,13 +18,29 @@ namespace WPF_study.ViewModels.Pages
         }
 
         [ObservableProperty]
-        private IEnumerable<DataColor> _colors;
-        [ObservableProperty]
         private IEnumerable<GangnamguPopulation?>? gangnamguPopulations;
         [ObservableProperty]
         private IEnumerable<string?>? administrativeAgency;
         [ObservableProperty]
         private string? selectedAdministrativeAgency;
+
+        [ObservableProperty]
+        private int? selectedTotalPopulation;
+
+        [ObservableProperty]
+        private int? selectedMalePopulation;
+
+        [ObservableProperty]
+        private int? selectedFemalePopulation;
+
+        [ObservableProperty]
+        private double? selectedSexRatio;
+
+        [ObservableProperty]
+        private int? selectedNumnerOfHouseholds;
+
+        [ObservableProperty]
+        private double? selectedNumverOfPeoplePerHouseHolds;
 
 
         public Task OnNavigatedToAsync()
@@ -37,9 +53,36 @@ namespace WPF_study.ViewModels.Pages
 
         public Task OnNavigatedFromAsync() => Task.CompletedTask;
 
+        [RelayCommand]
         private void OnSelectAdministrativeAgency()
         {
             var selectedData = this.SelectedAdministrativeAgency;
+        }
+
+        [RelayCommand]
+        private void CreateNewData()
+        {
+            GangnamguPopulation gangnamguPopulation = new GangnamguPopulation();
+
+            gangnamguPopulation.AdministrativeAgency = this.SelectedAdministrativeAgency;
+            gangnamguPopulation.TotalPopulation = this.selectedTotalPopulation;
+            gangnamguPopulation.MalePopulation = this.SelectedMalePopulation;
+            gangnamguPopulation.FemalePopulation = this.SelectedFemalePopulation;
+            gangnamguPopulation.SexRatio = this.SelectedSexRatio;
+            gangnamguPopulation.NumberOfHouseholds = this.SelectedNumnerOfHouseholds;
+            gangnamguPopulation.NumberOfPeoplePerHousehold = this.SelectedNumverOfPeoplePerHouseHolds;
+
+            _database?.Create(gangnamguPopulation);
+        }
+
+        [RelayCommand]
+        private void ReadAllData()
+        {
+            this.GangnamguPopulations = _database?.Get();
+            if (this.GangnamguPopulations != null)
+            {
+                this.AdministrativeAgency = gangnamguPopulations?.Select(x => x.AdministrativeAgency).ToList();
+            }
         }
 
         private async Task InitializeViewModelAsync()

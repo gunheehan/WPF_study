@@ -42,6 +42,9 @@ namespace WPF_study.ViewModels.Pages
         [ObservableProperty]
         private double? selectedNumverOfPeoplePerHouseHolds;
 
+        [ObservableProperty]
+        private int? selectedId;
+
 
         public Task OnNavigatedToAsync()
         {
@@ -57,6 +60,44 @@ namespace WPF_study.ViewModels.Pages
         private void OnSelectAdministrativeAgency()
         {
             var selectedData = this.SelectedAdministrativeAgency;
+        }
+
+        [RelayCommand]
+        private void UpdateData()
+        {
+            var detailData = _database?.GetDetail(this.SelectedId);
+
+            detailData.AdministrativeAgency = this.SelectedAdministrativeAgency;
+            detailData.TotalPopulation = this.SelectedTotalPopulation;
+            detailData.MalePopulation = this.SelectedMalePopulation;
+            detailData.FemalePopulation = this.SelectedFemalePopulation;
+            detailData.SexRatio = this.SelectedSexRatio;
+            detailData.NumberOfHouseholds = this.SelectedNumnerOfHouseholds;
+            detailData.NumberOfPeoplePerHousehold = this.SelectedNumverOfPeoplePerHouseHolds;
+
+            _database?.Update(detailData);
+        }
+
+        [RelayCommand]
+        private void DeleteData()
+        {
+            _database?.Delete(this.SelectedId);
+        }
+
+        [RelayCommand]
+        private void ReadDetailData()
+        {
+            var detailData = _database?.GetDetail(this.SelectedId);
+            if (detailData != null)
+            {
+                this.SelectedAdministrativeAgency = detailData.AdministrativeAgency;
+                this.SelectedTotalPopulation = detailData.TotalPopulation;
+                this.SelectedMalePopulation = detailData.MalePopulation;
+                this.SelectedFemalePopulation = detailData.FemalePopulation;
+                this.SelectedSexRatio = detailData.SexRatio;
+                this.SelectedNumnerOfHouseholds = detailData.NumberOfHouseholds;
+                this.SelectedNumverOfPeoplePerHouseHolds = detailData.NumberOfPeoplePerHousehold;
+            }
         }
 
         [RelayCommand]

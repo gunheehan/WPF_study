@@ -17,7 +17,7 @@ namespace WPF_study.Services
             _dbContext?.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(int? id)
         {
             var vaildData = _dbContext.GangnamguPopulations.FirstOrDefault(x => x.Id == id);
             if (vaildData != null) {
@@ -31,7 +31,7 @@ namespace WPF_study.Services
             return _dbContext?.GangnamguPopulations?.ToList();
         }
 
-        public GangnamguPopulation? GetDetail(int id)
+        public GangnamguPopulation? GetDetail(int? id)
         {
             var vaildData = _dbContext?.GangnamguPopulations.FirstOrDefault(y => y.Id == id);
             if (vaildData != null)
@@ -39,7 +39,7 @@ namespace WPF_study.Services
                 return vaildData;
             }
 
-            throw new InvalidOperationException();
+            return null;
         }
 
         public void Update(GangnamguPopulation entity)

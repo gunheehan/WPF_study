@@ -6,13 +6,13 @@ namespace WPF_study.Interfaces
     {
         List<T> Get();
 
-        T? GetDetail(int id);
+        T? GetDetail(int? id);
 
         void Create(T entity);
 
         void Update(T entity);
 
-        void Delete(int id);
+        void Delete(int? id);
 
     }
 }

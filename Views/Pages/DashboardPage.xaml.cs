@@ -14,17 +14,17 @@ namespace WPF_study.Views.Pages
             ViewModel = viewModel;
             DataContext = this;
 
-            ViewModel.PropertyChanged += ViewModel_PropertyChnaged;
-
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
             InitializeComponent();
         }
 
-        private void ViewModel_PropertyChnaged(object? sender, PropertyChangedEventArgs e)
+        private void ViewModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case "Text":
-                    this.btnClickMe.Background = new SolidColorBrush(Colors.Red);
+                case "AdministrativeAgency":
+                    this.loadingGrid.Visibility = Visibility.Collapsed;
+                    this.dashboardGrid.Visibility = Visibility.Visible;
                     break;
             }
         }
